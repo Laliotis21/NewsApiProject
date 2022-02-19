@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="NewApiServiceTest.searchForeverything" project="newsAPi" tests="1" started="1" failures="0" errors="0" ignored="0">
+  <testcase name="searchForeverything" classname="services.NewApiServiceTest" time="0.872"/>
+</testrun>

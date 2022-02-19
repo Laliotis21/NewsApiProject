@@ -59,14 +59,7 @@ public class NewApiService {
             final URIBuilder uriBuilder = new URIBuilder(API_URL)
                     .setPathSegments("v2", apiFunction)
                     .addParameter("apikey", API_KEY);
-//            if (country != null && !country.isBlank() ||
-//            		category != null && !category.isBlank() ||
-//                    query != null && !query.isBlank() ||
-//                    source != null && !source.isBlank() ||
-//                    searchingLanguage != null && !searchingLanguage.isBlank() ||
-//                    fromSearch != null && !fromSearch.isBlank() ||
-//                    toSearch != null && !toSearch.isBlank())
-                //{ 
+
                 switch (apiFunction) {
                     case "top-headlines":
                         uriBuilder.addParameter("country", country);
@@ -104,7 +97,7 @@ public class NewApiService {
             throw new NewsApiException("Unable to create request URI.", e);
         }
     }
-    @SuppressWarnings("unused")
+    
 	public IpFind getlocationData()
             throws NewsApiException {
         try {
