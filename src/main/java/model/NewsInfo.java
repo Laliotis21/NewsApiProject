@@ -51,7 +51,7 @@ public class NewsInfo {
 	    }
 	    @Override
 	    public String toString() {
-	        return "MovieInfo{" +
+	        return "NewsInfo{" +
 	                "title='" + title + "'\n" +
 	                ", description='" + description + "'\n" +
 	                ", url='" + url + "'\n" +

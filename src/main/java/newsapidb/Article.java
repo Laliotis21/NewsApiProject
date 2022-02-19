@@ -1,4 +1,3 @@
-
 package newsapidb;
 
 import java.util.HashMap;

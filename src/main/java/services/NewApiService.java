@@ -6,6 +6,7 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.IpFind;
 import model.NewsInfo;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpStatus;
@@ -65,7 +66,7 @@ public class NewApiService {
 //                    searchingLanguage != null && !searchingLanguage.isBlank() ||
 //                    fromSearch != null && !fromSearch.isBlank() ||
 //                    toSearch != null && !toSearch.isBlank())
-//                {
+                //{ 
                 switch (apiFunction) {
                     case "top-headlines":
                         uriBuilder.addParameter("country", country);
@@ -79,7 +80,7 @@ public class NewApiService {
                         uriBuilder.addParameter("to", toSearch);
                         break;
                 }
-//        }
+        //}
 
             final URI uri = uriBuilder.build();
 
@@ -103,5 +104,35 @@ public class NewApiService {
             throw new NewsApiException("Unable to create request URI.", e);
         }
     }
+    @SuppressWarnings("unused")
+	public IpFind getlocationData()
+            throws NewsApiException {
+        try {
+            final URIBuilder uriBuilder = new URIBuilder("http://ip-api.com/json/");
+                           
+        
+            final URI uri = uriBuilder.build();
+
+            final HttpGet getRequest = new HttpGet(uri);
+            final CloseableHttpClient httpclient = HttpClients.createDefault();
+            try (CloseableHttpResponse response = httpclient.execute(getRequest)) {
+                final HttpEntity entity = response.getEntity();
+                final ObjectMapper mapper = new ObjectMapper();
+
+                if (response.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
+                    ErrorResponse errorResponse = mapper.readValue(entity.getContent(), ErrorResponse.class);
+                    if (errorResponse.getStatusMessage() != null)
+                        throw new NewsApiException("Error occurred on API call: " + errorResponse.getStatusMessage());
+                }
+
+                return mapper.readValue(entity.getContent(), IpFind.class);
+            } catch (IOException e) {
+                throw new NewsApiException("Error requesting data from the NewsAPI.", e);
+            }
+        } catch (URISyntaxException e) {
+            throw new NewsApiException("Unable to create request URI.", e);
+        }
+    }
+
 }
 
