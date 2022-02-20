@@ -33,7 +33,13 @@ public class NewApiService {
         API_KEY = aPI_KEY;
     }
 
-
+/**
+ * Creating List with parameters for top-headline searching
+ * @param country  
+ * @param category 
+ * @return
+ * @throws NewsApiException --> H exceptions class
+ */
     public List<NewsInfo> searchFortopHeadlines(String country, String category) throws NewsApiException {
         NewsResults result = getAPIData("top-headlines",category, country, null,null, null, null, null,API_URL, API_KEY);
         List<NewsInfo> newsInfoList = new ArrayList<>(result.getArticles().size());
@@ -42,7 +48,16 @@ public class NewApiService {
         }
         return newsInfoList ;
     }
-
+/**
+ * 
+ * @param query Keywords or phrases to search for in the article title and body.
+ * @param source news sources  you want headlines from
+ * @param searchingLanguage
+ * @param fromSearch
+ * @param toSearch
+ * @return
+ * @throws NewsApiException
+ */
     public List<NewsInfo> searchForeverything(String query,String source, String searchingLanguage ,String fromSearch,String toSearch) throws NewsApiException {
         NewsResults result = getAPIData("everything", null, null, query,source, searchingLanguage, fromSearch, toSearch,API_URL, API_KEY);
         List<NewsInfo> newsInfoList = new ArrayList<>(result.getArticles().size());
@@ -53,6 +68,21 @@ public class NewApiService {
     }
 
 
+    /**
+     * Creating http get request 
+     * @param apiFunction
+     * @param category
+     * @param country
+     * @param query
+     * @param source
+     * @param searchingLanguage
+     * @param fromSearch
+     * @param toSearch
+     * @param API_URL
+     * @param API_KEY
+     * @return
+     * @throws NewsApiException
+     */
     private NewsResults getAPIData(String apiFunction, String category, String country, String query,String source, String searchingLanguage ,String fromSearch,String toSearch, String API_URL, String API_KEY)
             throws NewsApiException {
         try {
@@ -97,7 +127,13 @@ public class NewApiService {
             throw new NewsApiException("Unable to create request URI.", e);
         }
     }
-    
+
+    /**
+     * 
+     * new Http get request in order to get IP address 
+     * @return
+     * @throws NewsApiException
+     */
 	public IpFind getlocationData()
             throws NewsApiException {
         try {
